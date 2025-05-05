@@ -12,7 +12,7 @@ const Navbar = () => {
 			<ul className="hidden md:flex items-start gap-5 font-medium ">
 				<NavLink to="/">
 					<li className="py-1">HOME</li>
-					<hr className="hidden border-none outline-none h-0.5 bg-blue-500m-auto" />
+					<hr className="hidden border-none outline-none h-0.5 bg-blue-500 m-auto" />
 				</NavLink>
 				<NavLink to="/doctors">
 					<li className="py-1">All Doctors</li>
@@ -34,9 +34,24 @@ const Navbar = () => {
 						<img className="w-2.5" src={assets.dropdown_icon} alt="" />
 						<div className="absolute top-2 right-0 pt-14 text-base font-medium text-gray-600 hidden group-hover:block">
 							<div className="min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4">
-								<p onClick={()=>navigate('/my-profile')} className="hover:text-black cursor-pointer">My Profile</p>
-								<p onClick={()=>navigate('/my-appointments')} className="hover:text-black cursor-pointer">My Appointments</p>
-								<p onClick={()=>navigate('/logout')} className="hover:text-black cursor-pointer">Logout</p>
+								<p
+									onClick={() => navigate("my-profile")}
+									className="hover:text-black cursor-pointer"
+								>
+									My Profile
+								</p>
+								<p
+									onClick={() => navigate("my-appointments")}
+									className="hover:text-black cursor-pointer"
+								>
+									My Appointments
+								</p>
+								<p
+									onClick={() => setToken(false)}
+									className="hover:text-black cursor-pointer"
+								>
+									Logout
+								</p>
 							</div>
 						</div>
 					</div>
