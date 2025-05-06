@@ -22,14 +22,36 @@ const Appointment = () => {
 			// getting date with index
 			let currentDate = new Date(today);
 			currentDate.setDate(today.getDate() + i);
-      //setting end timeof the date with index;
-      let endTime = new Date();
-      endTime.setDate(today.getDate()+1);
-      endTime.setHours(21,0,0,0);
-      //setting hours
-      if(today.getDate() === currentDate.getDate()){
-        currentDate.setHours(currentDate.getHours > 10 ? currentDate.getHours() + 1 : 10)
-      }
+			//setting end timeof the date with index;
+			let endTime = new Date();
+			endTime.setDate(today.getDate() + i);
+			endTime.setHours(21, 0, 0, 0);
+			//setting hours
+			if (today.getDate() === currentDate.getDate()) {
+				currentDate.setHours(
+					currentDate.getHours > 10 ? currentDate.getHours() + 1 : 10
+				);
+				currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0);
+			} else {
+				currentDate.setHours(10);
+				currentDate.setMinutes(0);
+			}
+			let timeSlots = [];
+			while (currentDate < endTime) {
+				let formattedTime = currentDate.toLocalTimeString([], {
+					hour: "2-digit",
+					minute: "2-digit",
+				});
+				//add slot to array'
+				timeSlots.push({
+					datetime: new Date(currentDate),
+					time: formattedTime,
+				});
+				// increment current time by 30 minutes
+
+				currentDate.setMinutes(currentDate.getMinutes() + 30);
+			}
+			setDocSlots((prev) => [...prev, timeSlots]);
 		}
 	};
 	useEffect(() => {
@@ -39,6 +61,9 @@ const Appointment = () => {
 	useEffect(() => {
 		getAvailableSlots();
 	}, [docInfo]);
+  useEffect(() => {
+
+  }, [docSlots])
 	return (
 		docInfo && (
 			<div>
