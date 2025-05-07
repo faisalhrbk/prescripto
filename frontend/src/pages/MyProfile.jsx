@@ -8,7 +8,7 @@ const MyProfile = () => {
 		email: "faisalhrbk@outlook.com",
 		phone: "+92 123 45678",
 		address: {
-			lin1: "north street",
+			line1: "north street",
 			line2: "los angeles Calfornia Usa",
 		},
 		gender: "Male",
@@ -58,6 +58,7 @@ const MyProfile = () => {
 									}))
 								}
 								type="text"
+								value={userData.address.line1}
 							/>
 							<br />
 							<input
@@ -67,19 +68,51 @@ const MyProfile = () => {
 										...prev,
 										address: { ...prev.address, line2: e.target.value },
 									}))
-								} value={userData.line2}
+								}
+								value={userData.address.line2}
 							/>
 						</p>
 					) : (
 						<p>
-							{userData.address.lin1}
+							{userData.address.line1}
 							<br />
 							{userData.address.line2}
 						</p>
 					)}
 				</div>
 			</div>
-      
+			<div>
+				<p>BASIC INFORMATION</p>
+				<div>
+					<p>Gender:</p>
+					{isEdit ? (
+						<select
+							onChange={(e) =>
+								setUserData((prev) => ({ ...prev, gender: e.target.value }))
+							}
+							value={userData.gender}
+						>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="other">Other</option>
+						</select>
+					) : (
+						<p>{userData.gender}</p>
+					)}
+					<p>Birthday:</p>
+					{isEdit ? (
+						<input
+							type="date"
+							onChange={(e) =>
+								setUserData((prev) => ({ ...prev, dob: e.target.value }))
+							}
+							value={userData.dob}
+						/>
+					) : (
+						<p>{userData.dob}</p>
+					)}
+				</div>
+			</div>
 		</div>
 	);
 };
