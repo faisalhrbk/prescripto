@@ -64,6 +64,8 @@ export const addDoctorValidator = [
 	}),
 ];
 
+// 2 write 2nd validator here
+
 export const validate = (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty())

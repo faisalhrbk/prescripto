@@ -1,6 +1,6 @@
-import validator from "validator";
-//Api fro adding doctor
-
+import Doctor from '../models/Doctor.js';
+import  cloudinary  from "../config/cloudinary.js";
+//All validations are set router don't need to check here just save the data in Database
 export const addDoctor = async (req, res) => {
 	try {
 		const {
@@ -15,21 +15,6 @@ export const addDoctor = async (req, res) => {
 			address,
 		} = req.body;
 		const imageFile = req.file;
-		if (
-			!name ||
-			!email ||
-			!password ||
-			!speciality ||
-			!degree ||
-			!experience ||
-			!about ||
-			!fees ||
-			!address ||
-			!imageFile
-		) {
-			return res.json({ success: false, message: "missing details" });
-		}
-
-		// validating email format
+		
 	} catch (err) {}
 };
