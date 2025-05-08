@@ -1,0 +1,4 @@
+This file will contain special files
+
+installed dependencies 
+ npm i express mongoose multer bcrypt cloudinary cors dotenv jsonwebtoken nodemon validator
