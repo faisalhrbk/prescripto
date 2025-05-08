@@ -7,13 +7,16 @@ const MyAppointments = () => {
 	return (
 		<div>
 			<p className="pb-3 mt-12 font-medium text-zinc-700 border-bottom ">
-				My Appointments{" "}
+				My Appointments
 			</p>
 			<div>
 				{doctors.slice(0, 2).map((item, index) => (
-					<div key={index}>
+					<div
+						key={index}
+						className="grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 py-2 border-b"
+					>
 						<div>
-							<img src={item.image} alt="" />
+							<img className="w-32 bg-indigo-50 " src={item.image} alt="" />
 						</div>
 						<div>
 							<p>{item.name}</p>
@@ -25,10 +28,14 @@ const MyAppointments = () => {
 								<span>Date & Time</span> 25, July, 2024 | 08:30 PM
 							</p>
 						</div>
-						<div></div>
-						<div>
-							<button>Pay Online</button>
-							<button>Cancel appointment</button>
+						
+						<div className="flex flex-col gap-2 justify-end sm:ml-auto">
+							<button className="text-sm text-stone-500 text-center sm-min-w-48 py-2 border hover:bg-blue-500 hover:text-white transition-all duration-300  cursor-pointer">
+								Pay Online
+							</button>
+							<button className="text-sm px-3 text-stone-500 text-center sm-min-w-48 py-2 border  hover:bg-red-500 hover:text-white transition-all duration-300  cursor-pointer">
+								Cancel appointment
+							</button>
 						</div>
 					</div>
 				))}
