@@ -6,6 +6,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
+import adminRouter from "./routers/adminRouter.js";
 
 // Local Modules
 
@@ -17,14 +18,14 @@ connectCloudinary();
 
 // Middlewares
 app.use(express.json());
+adminRouter.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Api EndPoints
-
+app.use("/api/admin", adminRouter);
 app.get("/", (req, res, next) => {
 	res.send("hello world");
 });
-
 app.listen(PORT, () => {
 	connectDB();
 	console.log(`server running at http://localhost:${PORT}`);
