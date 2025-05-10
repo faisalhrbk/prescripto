@@ -18,18 +18,18 @@ export const addDoctorController = async (req, res) => {
 			address,
 			available,
 		} = req.body;
-console.log({
-	name,
-	email,
-	password,
-	speciality,
-	degree,
-	experience,
-	about,
-	fees,
-	address,
-	available,
-});
+		console.log({
+			name,
+			email,
+			password,
+			speciality,
+			degree,
+			experience,
+			about,
+			fees,
+			address,
+			available,
+		});
 
 		const imageFile = req.file;
 		if (await Doctor.findOne({ email }))
@@ -37,19 +37,26 @@ console.log({
 				.status(400)
 				.json({ errors: [{ msg: "Email exists", param: "email" }] });
 		const hashedPassword = await bcrypt.hash(password, 10);
-		const result = await cloudinary.uploader.upload(imageFile.path, {
-			folder: "doctors",
-		});
+		// try {
+			const result = await cloudinary.uploader.upload(imageFile.path, {
+				folder: "doctors",
+			});
+		// } catch (err) {
+		// 	return res
+		// 		.status(400)
+		// 		.json({ errors: [{ msg: "error saving image in cloud", param: "email" }] });
+		// }
 
 		let parsedAddress;
 		try {
-			parsedAddress = JSON.parse(address); // Convert string to object
+			parsedAddress = JSON.parse(address);
 		} catch (err) {
 			return res.status(400).json({
+				address: parsedAddress,
 				errors: [{ msg: "Invalid address format", param: "address" }],
 			});
 		}
-		console.log(parsedAddress)
+		console.log(parsedAddress);
 		const doctor = new Doctor({
 			name,
 			email,
@@ -60,7 +67,7 @@ console.log({
 			about,
 			fees,
 			available,
-			address: parsedAddress,
+			address,
 			image: result.secure_url,
 		});
 
