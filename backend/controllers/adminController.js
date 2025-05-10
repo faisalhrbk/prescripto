@@ -17,6 +17,7 @@ export const addDoctor = async (req, res) => {
 			fees,
 			address,
 		} = req.body;
+
 		const imageFile = req.file;
 		if (await Doctor.findOne({ email }))
 			return res
@@ -42,6 +43,7 @@ export const addDoctor = async (req, res) => {
 		await doctor.save();
 		res.status(201).json({ success: true, message: "Doctor added", doctor });
 	} catch (err) {
-		res.status(500).json({ message: "Internal Server error" });
+		console.error(err);
+		res.status(500).json({ message: `internal server error ${err}` });
 	}
 };
