@@ -1,9 +1,8 @@
 import Doctor from "../models/Doctor.js";
 import cloudinary from "../config/cloudinary.js";
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 
-//All validations are set router don't need to check here just save the data in Database
-
+//All validations are set in  router don't need to check here just save the data in Database
 
 export const addDoctor = async (req, res) => {
 	try {
@@ -41,7 +40,7 @@ export const addDoctor = async (req, res) => {
 			image: result.secure_url,
 		});
 		await doctor.save();
-		res.status(201).json({success: true, message: "Doctor added", doctor });
+		res.status(201).json({ success: true, message: "Doctor added", doctor });
 	} catch (err) {
 		res.status(500).json({ message: "Internal Server error" });
 	}
