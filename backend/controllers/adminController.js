@@ -1,6 +1,8 @@
 import Doctor from "../models/Doctor.js";
 import cloudinary from "../config/cloudinary.js";
 import bcrypt from "bcrypt";
+import multerUpload from '../middlewares/multer.js'
+
 
 //All validations are set in  router don't need to check here just save the data in Database
 
