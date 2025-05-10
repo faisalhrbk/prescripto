@@ -5,7 +5,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/mongodb.js";
-import connectCloudinary from "./config/cloudinary.js";
 import adminRouter from "./routers/adminRouter.js";
 
 // Local Modules
@@ -14,7 +13,7 @@ import adminRouter from "./routers/adminRouter.js";
 dotenv.config({});
 const app = express();
 const PORT = process.env.PORT || 3001;
-connectCloudinary();
+
 
 // Middlewares
 app.use(express.json());

@@ -1,6 +1,7 @@
 import Doctor from "../models/Doctor.js";
-import { cloudinary } from "../config/cloudinary.js";
+import  cloudinary  from "../config/cloudinary.js";
 import bcrypt from "bcrypt";
+import  fs  from "fs";
 
 //All validations are set in  router don't need to check here just save the data in Database
 
@@ -37,25 +38,15 @@ export const addDoctorController = async (req, res) => {
 				.status(400)
 				.json({ errors: [{ msg: "Email exists", param: "email" }] });
 		const hashedPassword = await bcrypt.hash(password, 10);
-		// try {
-			const result = await cloudinary.uploader.upload(imageFile.path, {
-				folder: "doctors",
-			});
-		// } catch (err) {
-		// 	return res
-		// 		.status(400)
-		// 		.json({ errors: [{ msg: "error saving image in cloud", param: "email" }] });
-		// }
 
-		let parsedAddress;
-		try {
-			parsedAddress = JSON.parse(address);
-		} catch (err) {
-			return res.status(400).json({
-				address: parsedAddress,
-				errors: [{ msg: "Invalid address format", param: "address" }],
-			});
-		}
+		const uploadImage = await cloudinary.uploader.upload(
+			imageFile.path,
+			{ resource_type: "image" },
+			{
+				folder: "doctors",
+			}
+		);
+		fs.unlinkSync(imageFile.path);
 		console.log(parsedAddress);
 		const doctor = new Doctor({
 			name,
@@ -67,8 +58,9 @@ export const addDoctorController = async (req, res) => {
 			about,
 			fees,
 			available,
-			address,
-			image: result.secure_url,
+			address: JSON.parse(address),
+			image: uploadImage.secure_url,
+			date: Date.now(),
 		});
 
 		await doctor.save();

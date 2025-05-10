@@ -60,12 +60,7 @@ export const addDoctorValidator = [
 		.toFloat(),
 	check("address")
 		.notEmpty()
-		.bail()
-		.withMessage("Address required")
-		.isLength({ min: 5 })
-		.bail()
-		.withMessage("Address must be 5+ chars")
-		.trim(),
+		.withMessage("Address required"),
 	check("available")
 		.notEmpty()
 		.withMessage("isActive required")
