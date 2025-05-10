@@ -18,12 +18,12 @@ connectCloudinary();
 
 // Middlewares
 app.use(express.json());
-adminRouter.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Api EndPoints
 app.use("/api/admin", adminRouter);
-app.get("/", (req, res, next) => {
+app.get("/", (req, res) => {
 	res.send("hello world");
 });
 app.listen(PORT, () => {

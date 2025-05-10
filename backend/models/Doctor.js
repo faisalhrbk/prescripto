@@ -16,8 +16,8 @@ const DoctorSchema = new mongoose.Schema(
 		fees: { type: Number, required: true },
 		address: { type: Object, required: true },
 		date: {
-			type: Number,
-			required: true,
+			type: Date,
+			default: Date.now,
 		},
 		slots_booked: {
 			type: Object,
