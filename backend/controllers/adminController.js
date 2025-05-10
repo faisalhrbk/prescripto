@@ -16,7 +16,20 @@ export const addDoctorController = async (req, res) => {
 			about,
 			fees,
 			address,
+			available,
 		} = req.body;
+console.log({
+	name,
+	email,
+	password,
+	speciality,
+	degree,
+	experience,
+	about,
+	fees,
+	address,
+	available,
+});
 
 		const imageFile = req.file;
 		if (await Doctor.findOne({ email }))
@@ -28,6 +41,15 @@ export const addDoctorController = async (req, res) => {
 			folder: "doctors",
 		});
 
+		let parsedAddress;
+		try {
+			parsedAddress = JSON.parse(address); // Convert string to object
+		} catch (err) {
+			return res.status(400).json({
+				errors: [{ msg: "Invalid address format", param: "address" }],
+			});
+		}
+		console.log(parsedAddress)
 		const doctor = new Doctor({
 			name,
 			email,
@@ -37,9 +59,11 @@ export const addDoctorController = async (req, res) => {
 			experience,
 			about,
 			fees,
-			address,
+			available,
+			address: parsedAddress,
 			image: result.secure_url,
 		});
+
 		await doctor.save();
 		res.status(201).json({ success: true, message: "Doctor added", doctor });
 	} catch (err) {

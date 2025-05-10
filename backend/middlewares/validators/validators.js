@@ -4,65 +4,80 @@ import { check, validationResult } from "express-validator";
 // 1: AddDoctorValidator
 export const addDoctorValidator = [
 	check("name")
-		.notEmpty().bail()
+		.notEmpty()
 		.withMessage("Name required")
-		.isLength({ min: 3 }).bail()
+		.bail()
+		.isLength({ min: 3 })
 		.withMessage("Name must be 3+ chars")
 		.trim(),
 	check("email")
-		.notEmpty().bail()
+		.notEmpty()
 		.withMessage("Email required")
-		.isEmail().bail()
+		.bail()
+		.isEmail()
 		.withMessage("Invalid email")
 		.normalizeEmail(),
 	check("password")
-		.notEmpty().bail()
+		.notEmpty()
 		.withMessage("Password required")
-		.isLength({ min: 6 }).bail()
+		.bail()
+		.isLength({ min: 6 })
 		.withMessage("Password must be 6+ chars"),
 	check("speciality")
-		.notEmpty().bail()
+		.notEmpty()
 		.withMessage("Speciality required")
-		.isLength({ min: 3 }).bail()
+		.bail()
+		.isLength({ min: 3 })
 		.withMessage("Speciality must be 3+ chars")
 		.trim(),
 	check("degree")
-		.notEmpty().bail()
+		.notEmpty()
 		.withMessage("Degree required")
-		.isLength({ min: 2 }).bail()
+		.bail()
+		.isLength({ min: 2 })
 		.withMessage("Degree must be 2+ chars")
 		.trim(),
 	check("experience")
-		.notEmpty().bail()
+		.notEmpty()
 		.withMessage("Experience required")
-		.isFloat({ min: 0 }).bail()
+		.isFloat({ min: 0 })
+		.bail()
 		.withMessage("Experience must be positive")
 		.toFloat(),
 	check("about")
-		.notEmpty().bail()
+		.notEmpty()
 		.withMessage("About required")
-		.isLength({ min: 10 }).bail()
+		.bail()
+		.isLength({ min: 10 })
 		.withMessage("About must be 10+ chars")
 		.trim(),
 	check("fees")
-		.notEmpty().bail()
+		.notEmpty()
 		.withMessage("Fees required")
-		.isFloat({ min: 0 }).bail()
+		.bail()
+		.isFloat({ min: 0 })
 		.withMessage("Fees must be positive")
 		.toFloat(),
 	check("address")
-		.notEmpty().bail()
+		.notEmpty()
+		.bail()
 		.withMessage("Address required")
-		.isLength({ min: 5 }).bail()
+		.isLength({ min: 5 })
+		.bail()
 		.withMessage("Address must be 5+ chars")
 		.trim(),
-	check("imageFile")
-		.custom((value, { req }) => {
-			if (!req.file) throw new Error("Image required");
-			if (!["image/jpeg", "image/png", "image/gif"].includes(req.file.mimetype))
-				throw new Error("Only JPEG, PNG, GIF allowed");
-			return true;
-		}),
+	check("available")
+		.notEmpty()
+		.withMessage("isActive required")
+		.isIn(["true", "false"])
+		.withMessage("Must be true or false")
+		.customSanitizer((value) => value === "true"),
+	check("imageFile").custom((value, { req }) => {
+		if (!req.file) throw new Error("Image required");
+		if (!["image/jpeg", "image/png", "image/gif"].includes(req.file.mimetype))
+			throw new Error("Only JPEG, PNG, GIF allowed");
+		return true;
+	}),
 ];
 
 // 2 write 2nd validator here
