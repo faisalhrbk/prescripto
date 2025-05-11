@@ -45,7 +45,7 @@ export const addDoctor = async (req, res) => {
 		});
 
 		// Create and save doctor
-		await new Doctor({
+		const doctor = await new Doctor({
 			name,
 			email,
 			password: hashedPassword,
@@ -58,8 +58,8 @@ export const addDoctor = async (req, res) => {
 			address,
 			image: uploadImage.secure_url,
 			date: Date.now(),
-		}).save();
-
+		});
+doctor.save()
 		// Delete local file
 		await fs.unlink(req.file.path);
 
