@@ -1,6 +1,6 @@
 //Core Modules
 
-// External Modules
+// External Modules/Packages
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -20,10 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Api EndPoints
+app.get("/", (_, res) => res.send("server is running"));
 app.use("/api/admin", adminRouter);
-app.get("/", (req, res) => {
-	res.send("hello world");
-});
 
 app.listen(PORT, () => {
 	connectDB();

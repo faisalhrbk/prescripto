@@ -60,7 +60,23 @@ export const addDoctorValidator = [
 		.toFloat(),
 	check("address")
 		.notEmpty()
-		.withMessage("Address required"),
+		.withMessage("Address required")
+		.custom((value) => {
+			if (typeof value !== "object") {
+				throw new Error("Address must be an object");
+			}
+			return true;
+		}),
+	check("address.line1")
+		.isString()
+		.withMessage("incorrect address")
+		.isLength({ min: 4 })
+		.withMessage("enter a valid address"),
+	check("address.line2")
+		.isString()
+		.withMessage("incorrect address")
+		.isLength({ min: 4 })
+		.withMessage("enter a valid address"),
 	check("available")
 		.notEmpty()
 		.withMessage("isActive required")

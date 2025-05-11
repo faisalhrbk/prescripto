@@ -30,7 +30,7 @@ export const addDoctorController = async (req, res) => {
 		});
 
 		// Create and save doctor
-		const doctor = new Doctor({
+		 await  new Doctor({
 			name,
 			email,
 			password: hashedPassword,
@@ -40,12 +40,10 @@ export const addDoctorController = async (req, res) => {
 			about,
 			fees,
 			available,
-			address: JSON.parse(address), // Assumes router validated address
+			address,
 			image: uploadImage.secure_url,
 			date: Date.now(),
-		});
-
-		const savedDoctor = await doctor.save();
+		}).save();
 
 		// Delete local file
 		await fs.unlink(req.file.path);
