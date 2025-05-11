@@ -2,7 +2,7 @@ import Doctor from "../models/Doctor.js";
 import cloudinary from "../config/cloudinary.js";
 import bcrypt from "bcrypt";
 import fs from "fs/promises";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -113,8 +113,13 @@ export const loginAdmin = async (req, res) => {
 			message: "Invalid credentials",
 		});
 	}
- const token  = jwt.sign(email+password)
+	const token = jwt.sign(
+		{ email: process.env.ADMIN_EMAIL },
+		process.env.JWT_SECRET
+	);
+
 	return res.status(200).json({
+		token,
 		success: true,
 		message: "Login successful",
 	});
