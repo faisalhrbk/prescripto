@@ -14,7 +14,7 @@ const DoctorSchema = new mongoose.Schema(
 		},
 		available: { type: Boolean, required: true },
 		fees: { type: Number, required: true },
-		address: { type: Object, required: true },
+		address: { type: Object, },
 		date: {
 			type: Date,
 			default: Date.now,
