@@ -61,22 +61,20 @@ export const addDoctorValidator = [
 	check("address")
 		.notEmpty()
 		.withMessage("Address required")
-		.custom((value) => {
-			if (typeof value !== "object") {
-				throw new Error("Address must be an object");
-			}
-			return true;
-		}),
+		.isObject()
+		.withMessage("Address must be an object"),
 	check("address.line1")
 		.isString()
-		.withMessage("incorrect address")
-		.isLength({ min: 4 })
-		.withMessage("enter a valid address"),
+		.withMessage("Address line 1 must be a string")
+		.trim()
+		.isLength({ min: 5 })
+		.withMessage("Address line 1 must be at least 4 characters long"),
 	check("address.line2")
 		.isString()
-		.withMessage("incorrect address")
-		.isLength({ min: 4 })
-		.withMessage("enter a valid address"),
+		.withMessage("Address line 2 must be a string")
+		.trim()
+		.isLength({ min: 5 })
+		.withMessage("Address line 2 must be at least 1 character long"),
 	check("available")
 		.notEmpty()
 		.withMessage("isActive required")
