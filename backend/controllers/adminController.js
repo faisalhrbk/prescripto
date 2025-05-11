@@ -1,7 +1,9 @@
 import Doctor from "../models/Doctor.js";
 import cloudinary from "../config/cloudinary.js";
 import bcrypt from "bcrypt";
-import fs from "fs/promises"; // Use promises for async file operations
+import fs from "fs/promises"; 
+
+//all validations are wrote in validator.js file here you can save data in bd only
 
 export const addDoctorController = async (req, res) => {
 	let uploadImage;
@@ -48,24 +50,9 @@ export const addDoctorController = async (req, res) => {
 		// Delete local file
 		await fs.unlink(req.file.path);
 
-		// Return response without sensitive fields
 		res.status(201).json({
 			success: true,
-			message: "Doctor added",
-			doctor: {
-				_id: savedDoctor._id,
-				name: savedDoctor.name,
-				email: savedDoctor.email,
-				speciality: savedDoctor.speciality,
-				degree: savedDoctor.degree,
-				experience: savedDoctor.experience,
-				about: savedDoctor.about,
-				fees: savedDoctor.fees,
-				available: savedDoctor.available,
-				address: savedDoctor.address,
-				image: savedDoctor.image,
-				date: savedDoctor.date,
-			},
+			message: "Doctor added"
 		});
 	} catch (err) {
 		// Clean up Cloudinary image if upload succeeded but save failed

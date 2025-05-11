@@ -1,10 +1,12 @@
 import { v2 as cloudinary } from "cloudinary";
+import dotenv from "dotenv";
+dotenv.config();
 
-// Hardcode your credentials directly in the config
+
 cloudinary.config({
-	cloud_name: "dbjj0og9z",
-	api_key: "728996341426286",
-	api_secret: "sZDZhwrUF0XXdrqe0mTr9tejI8Y",
+	cloud_name: process.env.CLOUDINARY_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_SECRET_KEY,
 });
 
 console.log("Cloudinary configured with:", {
