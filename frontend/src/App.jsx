@@ -11,8 +11,14 @@ import Appointment from "./pages/Appointment";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+const AdminLayout = () => (
+	<div className="mx-4 sm:mx-[10%]">
+		<AdminNavbar />
+		<Outlet />
+		<AdminFooter />
+	</div>
+);
 const App = () => {
-
 	return (
 		<div className="mx-4 sm:mx-[10%]">
 			<Navbar />
@@ -26,6 +32,14 @@ const App = () => {
 				<Route path="/my-profile" element={<MyProfile />} />
 				<Route path="/my-appointments" element={<MyAppointments />} />
 				<Route path="/appointment/:docId" element={<Appointment />} />
+
+				{/* ADMIN ROUTES */}
+				<Route element={<ProtectedRoute />}>
+					<Route path="/admin" element={<AdminLayout />}>
+						<Route index element={<AdminDashboard />} />
+						<Route path="add-doctor" element={<AddDoctor />} />
+					</Route>
+				</Route>
 			</Routes>
 			<Footer />
 		</div>
