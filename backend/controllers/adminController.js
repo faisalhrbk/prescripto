@@ -1,11 +1,14 @@
 import Doctor from "../models/Doctor.js";
 import cloudinary from "../config/cloudinary.js";
 import bcrypt from "bcrypt";
-import fs from "fs/promises"; 
+import fs from "fs/promises";
+import jwt from 'jsonwebtoken'
+import dotenv from "dotenv";
+dotenv.config();
 
-//all validations are wrote in validator.js file here you can save data in bd only
+//all validations are wrote in validator.js file here you can save data in DB only
 
-export const addDoctorController = async (req, res) => {
+export const addDoctor = async (req, res) => {
 	let uploadImage;
 	try {
 		const {
@@ -20,18 +23,18 @@ export const addDoctorController = async (req, res) => {
 			address,
 			available,
 		} = req.body;
-		console.log({
-			name,
-			email,
-			password,
-			speciality,
-			degree,
-			experience,
-			about,
-			fees,
-			address,
-			available,
-		});
+		// console.log({
+		// 	name,
+		// 	email,
+		// 	password,
+		// 	speciality,
+		// 	degree,
+		// 	experience,
+		// 	about,
+		// 	fees,
+		// 	address,
+		// 	available,
+		// });
 
 		// Hash password
 		const hashedPassword = await bcrypt.hash(password, 10);
@@ -42,7 +45,7 @@ export const addDoctorController = async (req, res) => {
 		});
 
 		// Create and save doctor
-		 await  new Doctor({
+		await new Doctor({
 			name,
 			email,
 			password: hashedPassword,
@@ -62,7 +65,7 @@ export const addDoctorController = async (req, res) => {
 
 		res.status(201).json({
 			success: true,
-			message: "Doctor added"
+			message: "Doctor added",
 		});
 	} catch (err) {
 		// Clean up Cloudinary image if upload succeeded but save failed
@@ -92,4 +95,27 @@ export const addDoctorController = async (req, res) => {
 		});
 		res.status(500).json({ message: `Internal server error: ${err.message}` });
 	}
+};
+
+// api for admin login
+export const loginAdmin = async (req, res) => {
+	const { email, password } = req.body;
+
+	if (email !== process.env.ADMIN_EMAIL) {
+		return res.status(401).json({
+			success: false,
+			message: "Invalid credentials",
+		});
+	}
+	if (password !== process.env.ADMIN_PASSWORD) {
+		return res.status(401).json({
+			success: false,
+			message: "Invalid credentials",
+		});
+	}
+ const token  = jwt.sign(email+password)
+	return res.status(200).json({
+		success: true,
+		message: "Login successful",
+	});
 };

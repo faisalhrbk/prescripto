@@ -92,7 +92,23 @@ export const addDoctorValidator = [
 		return true;
 	}),
 ];
-// 2 write 2nd validator here
+
+// 2 loginAdminValidator
+export const loginAdminValidator = [
+	check("email")
+		.notEmpty()
+		.withMessage("Email is required")
+		.bail()
+		.isEmail()
+		.withMessage("Please enter a valid email address")
+		.normalizeEmail(),
+	check("password")
+		.notEmpty()
+		.withMessage("Password is required")
+		.bail()
+		.isLength({ min: 6 })
+		.withMessage("Password must be at least 6 characters long"),
+];
 
 export const validate = (req, res, next) => {
 	const errors = validationResult(req);
