@@ -20,6 +20,18 @@ export const addDoctorController = async (req, res) => {
 			address,
 			available,
 		} = req.body;
+		console.log({
+			name,
+			email,
+			password,
+			speciality,
+			degree,
+			experience,
+			about,
+			fees,
+			address,
+			available,
+		});
 
 		// Hash password
 		const hashedPassword = await bcrypt.hash(password, 10);

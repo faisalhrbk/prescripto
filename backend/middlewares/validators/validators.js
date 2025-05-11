@@ -9,7 +9,8 @@ export const addDoctorValidator = [
 		.bail()
 		.isLength({ min: 3 })
 		.withMessage("Name must be 3+ chars")
-		.trim(),
+		.trim()
+		.escape(),
 	check("email")
 		.notEmpty()
 		.withMessage("Email required")
@@ -29,19 +30,20 @@ export const addDoctorValidator = [
 		.bail()
 		.isLength({ min: 3 })
 		.withMessage("Speciality must be 3+ chars")
-		.trim(),
+		.trim()
+		.escape(),
 	check("degree")
 		.notEmpty()
 		.withMessage("Degree required")
 		.bail()
 		.isLength({ min: 2 })
 		.withMessage("Degree must be 2+ chars")
-		.trim(),
+		.trim()
+		.escape(),
 	check("experience")
 		.notEmpty()
 		.withMessage("Experience required")
 		.isFloat({ min: 0 })
-		.bail()
 		.withMessage("Experience must be positive")
 		.toFloat(),
 	check("about")
@@ -50,7 +52,8 @@ export const addDoctorValidator = [
 		.bail()
 		.isLength({ min: 10 })
 		.withMessage("About must be 10+ chars")
-		.trim(),
+		.trim()
+		.escape(),
 	check("fees")
 		.notEmpty()
 		.withMessage("Fees required")
@@ -59,7 +62,7 @@ export const addDoctorValidator = [
 		.withMessage("Fees must be positive")
 		.toFloat(),
 	check("address")
-		.notEmpty()
+		.exists({ checkFalsy: true })
 		.withMessage("Address required")
 		.isObject()
 		.withMessage("Address must be an object"),
@@ -68,19 +71,20 @@ export const addDoctorValidator = [
 		.withMessage("Address line 1 must be a string")
 		.trim()
 		.isLength({ min: 5 })
-		.withMessage("Address line 1 must be at least 4 characters long"),
+		.withMessage("Address line 1 must be at least 5 characters long"),
 	check("address.line2")
 		.isString()
 		.withMessage("Address line 2 must be a string")
 		.trim()
-		.isLength({ min: 5 })
+		.isLength({ min: 1 })
 		.withMessage("Address line 2 must be at least 1 character long"),
 	check("available")
 		.notEmpty()
-		.withMessage("isActive required")
-		.isIn(["true", "false"])
-		.withMessage("Must be true or false")
-		.customSanitizer((value) => value === "true"),
+		.withMessage("Available required")
+		.bail()
+		.isBoolean()
+		.withMessage("Must be a boolean")
+		.toBoolean(),
 	check("imageFile").custom((value, { req }) => {
 		if (!req.file) throw new Error("Image required");
 		if (!["image/jpeg", "image/png", "image/gif"].includes(req.file.mimetype))
@@ -88,7 +92,6 @@ export const addDoctorValidator = [
 		return true;
 	}),
 ];
-
 // 2 write 2nd validator here
 
 export const validate = (req, res, next) => {
