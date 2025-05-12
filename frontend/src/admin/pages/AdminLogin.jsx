@@ -29,8 +29,16 @@ const AdminLogin = () => {
 			}
 		} catch (err) {
 			console.error("Login error:", err.response || err);
-			toast.error(err.response?.data?.message || "Login failed");
+			const errors = err.response?.data?.errors;
+
+			if (Array.isArray(errors) && errors.length > 0) {
+				// Show each validation error
+				errors.forEach((e) => toast.error(e.msg));
+			} else {
+				toast.error(err.response?.data?.message || "Login failed");
+			}
 		}
+		
 	};
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");

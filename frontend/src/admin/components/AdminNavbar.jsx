@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { assets } from "../assets/assets";
+import { AdminContext } from "../context/AdminContext";
 
 const AdminNavbar = () => {
-  return (
-    <div>AdminNavbar</div>
-  )
-}
+	const { adminToken } = useContext(AdminContext);
+	return (
+		<div>
+			<div>
+				<img src={assets.admin_logo} alt="" />
+				<p>{adminToken ? "Admin" : "Doctor"}</p>
+			</div>
+		</div>
+	);
+};
 
-export default AdminNavbar
+export default AdminNavbar;

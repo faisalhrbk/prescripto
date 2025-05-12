@@ -52,9 +52,12 @@ const App = () => {
 					<Route path="my-appointments" element={<MyAppointments />} />
 					<Route path="appointment/:docId" element={<Appointment />} />
 				</Route>
+
+				{/*---- ADMIN LOGIN (No Layout) ---- */}
+				<Route path="/admin/login" element={<AdminLogin />} />
+
 				{/*---- ADMIN ROUTES---- */}
 				<Route path="/admin" element={<AdminLayout />}>
-					<Route path="login" element={<AdminLogin />} />
 					<Route element={<AdminProtectedRoutes />}>
 						{/* Admin protected routes go here */}
 					</Route>
