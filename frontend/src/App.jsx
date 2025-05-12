@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Doctors from "./pages/Doctors";
 import Login from "./pages/Login";
@@ -12,8 +12,20 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 // Admin IMPORTS
-import AdminLogin from "./admin/pages/AdminLogin"
+import AdminLogin from "./admin/pages/AdminLogin";
+import AdminNavbar from "./admin/components/AdminNavbar";
+import AdminFooter from "./admin/components/AdminFooter";
 
+// User Layout
+const MainUserLayout = () => (
+	<div className="mx-4 sm:mx-[10%]">
+		<Navbar />
+		<Outlet />
+		<Footer />
+	</div>
+);
+
+// Admin Layout
 const AdminLayout = () => (
 	<div className="mx-4 sm:mx-[10%]">
 		<AdminNavbar />
@@ -21,30 +33,27 @@ const AdminLayout = () => (
 		<AdminFooter />
 	</div>
 );
+
 const App = () => {
 	return (
-		<div className="mx-4 sm:mx-[10%]">
-			<Navbar />
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/doctors" element={<Doctors />} />
-				<Route path="/doctors/:speciality" element={<Doctors />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/about" element={<About />} />
-				<Route path="/contact" element={<Contact />} />
-				<Route path="/my-profile" element={<MyProfile />} />
-				<Route path="/my-appointments" element={<MyAppointments />} />
-				<Route path="/appointment/:docId" element={<Appointment />} />
-
-	{/*-------------ADMIN ROUTES------ */}
-
-				<Route path="/admin" element={<AdminLayout />}>
-					<Route path="/login" element={<AdminLogin />}></Route>
-					<Route path="add-doctor" element={<AddDoctor />} />
-				</Route>
-			</Routes>
-			<Footer />
-		</div>
+		<Routes>
+			{/* ----MAIN USER LAYOUT----- */}
+			<Route path="/" element={<MainUserLayout />}>
+				<Route index element={<Home />} />
+				<Route path="doctors" element={<Doctors />} />
+				<Route path="doctors/:speciality" element={<Doctors />} />
+				<Route path="login" element={<Login />} />
+				<Route path="about" element={<About />} />
+				<Route path="contact" element={<Contact />} />
+				<Route path="my-profile" element={<MyProfile />} />
+				<Route path="my-appointments" element={<MyAppointments />} />
+				<Route path="appointment/:docId" element={<Appointment />} />
+			</Route>
+{/*---- ADMIN ROUTES---- */}
+			<Route path="/admin" element={<AdminLayout />}>
+				<Route path="login" element={<AdminLogin />} />
+			</Route>
+		</Routes>
 	);
 };
 
