@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import { AdminContext } from "../context/AdminContext";
 
+import { ToastContainer, toast } from "react-toastify";
+
 import axios from "axios";
 
-const Login = () => {
+const AdminLogin = () => {
 	const [state, setState] = useState("Admin");
-	const { setAdminToken, backendUrl } = useContext(AdminContext);
+	const { setAdminToken } = useContext(AdminContext);
 
 	const onSubmitHandler = async (event) => {
 		event.preventDefault();
@@ -13,17 +15,25 @@ const Login = () => {
 			if (state === "Admin") {
 				const { data } = await axios.post(
 					"http://localhost:3000/api/admin/login",
-					{
-						email,
-						password,
-					}
+					{ email, password }
 				);
 				if (data.success) {
-					console.log(data);
+					localStorage.setItem("adminToken", data.token);
+					setAdminToken(data.token);
+					toast.success(data.message);
+				} else {
+					toast.error(data.message);
 				}
 			} else {
+				// Doctor login logic
 			}
-		} catch (err) {}
+      
+		} catch (err) {
+    console.log('fuck');
+    
+      
+	  // toast.error(err.response?.data?.message || "An error occurred during login");
+	}
 	};
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -56,7 +66,10 @@ const Login = () => {
 						name="password"
 					/>
 				</div>
-				<button type="submit" className= " cursor-pointer bg-blue-500 text-white w-full py-2 rounded-md text-base">
+				<button
+					type="submit"
+					className=" cursor-pointer bg-blue-500 text-white w-full py-2 rounded-md text-base"
+				>
 					Login
 				</button>
 				{state === "Admin" ? (
@@ -85,4 +98,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default AdminLogin;

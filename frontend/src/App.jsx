@@ -10,7 +10,8 @@ import MyAppointments from "./pages/MyAppointments";
 import Appointment from "./pages/Appointment";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import { ToastContainer, } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Admin IMPORTS
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminNavbar from "./admin/components/AdminNavbar";
@@ -36,24 +37,27 @@ const AdminLayout = () => (
 
 const App = () => {
 	return (
-		<Routes>
-			{/* ----MAIN USER LAYOUT----- */}
-			<Route path="/" element={<MainUserLayout />}>
-				<Route index element={<Home />} />
-				<Route path="doctors" element={<Doctors />} />
-				<Route path="doctors/:speciality" element={<Doctors />} />
-				<Route path="login" element={<Login />} />
-				<Route path="about" element={<About />} />
-				<Route path="contact" element={<Contact />} />
-				<Route path="my-profile" element={<MyProfile />} />
-				<Route path="my-appointments" element={<MyAppointments />} />
-				<Route path="appointment/:docId" element={<Appointment />} />
-			</Route>
-{/*---- ADMIN ROUTES---- */}
-			<Route path="/admin" element={<AdminLayout />}>
-				<Route path="login" element={<AdminLogin />} />
-			</Route>
-		</Routes>
+		<>
+			<ToastContainer />
+			<Routes>
+				{/* ----MAIN USER LAYOUT----- */}
+				<Route path="/" element={<MainUserLayout />}>
+					<Route index element={<Home />} />
+					<Route path="doctors" element={<Doctors />} />
+					<Route path="doctors/:speciality" element={<Doctors />} />
+					<Route path="login" element={<Login />} />
+					<Route path="about" element={<About />} />
+					<Route path="contact" element={<Contact />} />
+					<Route path="my-profile" element={<MyProfile />} />
+					<Route path="my-appointments" element={<MyAppointments />} />
+					<Route path="appointment/:docId" element={<Appointment />} />
+				</Route>
+				{/*---- ADMIN ROUTES---- */}
+				<Route path="/admin" element={<AdminLayout />}>
+					<Route path="login" element={<AdminLogin />} />
+				</Route>
+			</Routes>
+		</>
 	);
 };
 
