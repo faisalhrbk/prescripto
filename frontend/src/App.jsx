@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+
 import { Route, Routes, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Doctors from "./pages/Doctors";
