@@ -1,8 +1,9 @@
 import { createContext } from "react";
-import { doctors } from "../assets/assets";
+import { doctors } from "../assets/assets.js";
 export const AppContext = createContext();
 const AppContextProvider = (props) => {
 	const currencySymbol = "$";
+
 	const value = {
 		doctors,
 		currencySymbol,
