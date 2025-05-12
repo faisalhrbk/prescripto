@@ -17,7 +17,7 @@ dotenv.config();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 
 // Api EndPoints
 app.get("/", (_, res) => res.send("server is running"));
