@@ -59,7 +59,7 @@ export const addDoctor = async (req, res) => {
 			image: uploadImage.secure_url,
 			date: Date.now(),
 		});
-doctor.save()
+		doctor.save();
 		// Delete local file
 		await fs.unlink(req.file.path);
 
