@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Doctors from "./pages/Doctors";
@@ -10,12 +10,13 @@ import MyAppointments from "./pages/MyAppointments";
 import Appointment from "./pages/Appointment";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { ToastContainer, } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // Admin IMPORTS
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminNavbar from "./admin/components/AdminNavbar";
 import AdminFooter from "./admin/components/AdminFooter";
+import AdminProtectedRoutes from "./admin/components/AdminProtectedRoutes.jsx"
 
 // User Layout
 const MainUserLayout = () => (
@@ -55,6 +56,9 @@ const App = () => {
 				{/*---- ADMIN ROUTES---- */}
 				<Route path="/admin" element={<AdminLayout />}>
 					<Route path="login" element={<AdminLogin />} />
+					<Route element={AdminProtectedRoutes}>
+						{/* Admin protected routes go here */}
+					</Route>
 				</Route>
 			</Routes>
 		</>
