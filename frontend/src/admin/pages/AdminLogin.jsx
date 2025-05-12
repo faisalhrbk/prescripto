@@ -27,13 +27,10 @@ const AdminLogin = () => {
 			} else {
 				// Doctor login logic
 			}
-      
 		} catch (err) {
-    console.log('fuck');
-    
-      
-	  // toast.error(err.response?.data?.message || "An error occurred during login");
-	}
+			console.error("Login error:", err.response || err);
+			toast.error(err.response?.data?.message || "Login failed");
+		}
 	};
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");

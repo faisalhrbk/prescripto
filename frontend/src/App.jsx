@@ -58,6 +58,7 @@ const App = () => {
 					<Route path="login" element={<AdminLogin />} />
 					<Route element={AdminProtectedRoutes}>
 						{/* Admin protected routes go here */}
+						
 					</Route>
 				</Route>
 			</Routes>
