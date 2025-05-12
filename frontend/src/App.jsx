@@ -11,6 +11,9 @@ import Appointment from "./pages/Appointment";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+// Admin IMPORTS
+import AdminLogin from "./admin/pages/AdminLogin"
+
 const AdminLayout = () => (
 	<div className="mx-4 sm:mx-[10%]">
 		<AdminNavbar />
@@ -33,12 +36,11 @@ const App = () => {
 				<Route path="/my-appointments" element={<MyAppointments />} />
 				<Route path="/appointment/:docId" element={<Appointment />} />
 
-				{/* ADMIN ROUTES */}
-				<Route element={<ProtectedRoute />}>
-					<Route path="/admin" element={<AdminLayout />}>
-						<Route index element={<AdminDashboard />} />
-						<Route path="add-doctor" element={<AddDoctor />} />
-					</Route>
+	{/*-------------ADMIN ROUTES------ */}
+
+				<Route path="/admin" element={<AdminLayout />}>
+					<Route path="/login" element={<AdminLogin />}></Route>
+					<Route path="add-doctor" element={<AddDoctor />} />
 				</Route>
 			</Routes>
 			<Footer />
