@@ -1,4 +1,3 @@
-
 import { Route, Routes, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Doctors from "./pages/Doctors";
@@ -16,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminNavbar from "./admin/components/AdminNavbar";
 import AdminFooter from "./admin/components/AdminFooter";
-import AdminProtectedRoutes from "./admin/components/AdminProtectedRoutes.jsx"
+import AdminProtectedRoutes from "./admin/components/AdminProtectedRoutes.jsx";
 
 // User Layout
 const MainUserLayout = () => (
@@ -56,9 +55,8 @@ const App = () => {
 				{/*---- ADMIN ROUTES---- */}
 				<Route path="/admin" element={<AdminLayout />}>
 					<Route path="login" element={<AdminLogin />} />
-					<Route element={AdminProtectedRoutes}>
+					<Route element={<AdminProtectedRoutes />}>
 						{/* Admin protected routes go here */}
-						
 					</Route>
 				</Route>
 			</Routes>

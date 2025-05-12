@@ -4,7 +4,12 @@ import { AdminContext } from "../context/AdminContext";
 
 const AdminProtectedRoutes = () => {
 	const { adminToken } = useContext(AdminContext);
-	return adminToken ? <Outlet /> : <Navigate to="/admin/login" />;
+	return adminToken && adminToken !== "" ? (
+		<Outlet />
+	) : (
+		<Navigate to="/admin/login" />
+	);
+
 };
 
 export default AdminProtectedRoutes;
