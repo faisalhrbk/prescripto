@@ -124,3 +124,4 @@ export const loginAdmin = async (req, res) => {
 		message: "Login successful",
 	});
 };
+
